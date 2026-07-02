@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet" />
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1200px; height:630px; overflow:hidden; }
+  body {
+    font-family:"Nunito",sans-serif; position:relative; color:#fff;
+    background:
+      radial-gradient(700px 500px at 12% -10%, rgba(56,189,248,.22), transparent 60%),
+      radial-gradient(700px 500px at 100% 20%, rgba(167,139,250,.20), transparent 55%),
+      radial-gradient(600px 600px at 60% 130%, rgba(251,191,36,.14), transparent 60%),
+      linear-gradient(180deg,#0f1b2d 0%,#1a2744 50%,#0f1b2d 100%);
+    display:flex; align-items:center;
+  }
+  .stars span { position:absolute; background:#fff; border-radius:50%; opacity:.8; }
+  .content { padding:0 70px; z-index:2; max-width:720px; }
+  .badge {
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:"Fredoka"; font-weight:600; letter-spacing:.5px; text-transform:uppercase;
+    color:#38bdf8; background:rgba(56,189,248,.12); border:2px solid rgba(56,189,248,.4);
+    padding:8px 20px; border-radius:999px; font-size:22px; margin-bottom:26px;
+  }
+  h1 { font-family:"Fredoka"; font-weight:700; font-size:82px; line-height:1.0; letter-spacing:-1px; }
+  h1 .accent { color:#fbbf24; }
+  p.sub { margin-top:24px; font-size:30px; font-weight:600; color:#e8f0fe; }
+  p.sub b { color:#fbbf24; font-weight:800; }
+  .art { position:absolute; right:40px; top:50%; transform:translateY(-50%); z-index:1; }
+</style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+
+  <div class="content">
+    <span class="badge">🦕 Bienvenido al universo</span>
+    <h1>El universo de <span class="accent">Joaquín</span></h1>
+    <p class="sub">Dinosaurios astronautas, estrellas y <b>todo el amor del universo</b> ✨</p>
+  </div>
+
+  <div class="art">
+    <svg width="430" height="430" viewBox="0 0 430 430" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- planeta con anillo -->
+      <g transform="translate(40,40)">
+        <ellipse cx="70" cy="60" rx="70" ry="20" fill="none" stroke="#38bdf8" stroke-width="7" opacity=".7"/>
+        <circle cx="70" cy="54" r="40" fill="#38bdf8"/>
+        <circle cx="58" cy="48" r="4" fill="#0f1b2d"/><circle cx="82" cy="48" r="4" fill="#0f1b2d"/>
+        <path d="M56 64 q14 12 28 0" stroke="#0f1b2d" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+      <!-- sol sonriente -->
+      <g transform="translate(300,20)">
+        <circle cx="45" cy="45" r="42" fill="#fbbf24"/>
+        <path d="M30 42 q6 -8 12 0" stroke="#0f1b2d" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+        <path d="M48 42 q6 -8 12 0" stroke="#0f1b2d" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+        <path d="M32 56 q13 12 26 0" stroke="#0f1b2d" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+      </g>
+
+      <!-- DINO astronauta verde (grande, centro) -->
+      <g transform="translate(70,150)">
+        <path d="M235 92 C 300 84, 320 54, 330 34 C 318 78, 300 118, 240 116 Z" fill="#22c55e"/>
+        <rect x="118" y="118" width="26" height="58" rx="13" fill="#16a34a"/>
+        <rect x="206" y="118" width="26" height="58" rx="13" fill="#16a34a"/>
+        <ellipse cx="170" cy="92" rx="86" ry="56" fill="#22c55e"/>
+        <rect x="146" y="122" width="26" height="60" rx="13" fill="#22c55e"/>
+        <rect x="230" y="118" width="26" height="56" rx="13" fill="#22c55e"/>
+        <path d="M122 78 C 82 50, 70 8, 94 -24 L 130 -8 C 122 30, 146 66, 158 86 Z" fill="#22c55e"/>
+        <path d="M160 52 l12 -20 l12 20 Z M200 48 l12 -20 l12 20 Z M236 60 l10 -18 l10 18 Z" fill="#16a34a"/>
+        <ellipse cx="96" cy="-28" rx="34" ry="26" fill="#22c55e"/>
+        <path d="M64 -24 q-24 -2 -26 12 q0 12 26 8 Z" fill="#22c55e"/>
+        <circle cx="46" cy="-22" r="3.4" fill="#0f1b2d"/>
+        <circle cx="96" cy="-36" r="5.6" fill="#0f1b2d"/>
+        <path d="M74 -18 q18 12 36 2" stroke="#0f1b2d" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <circle cx="92" cy="-28" r="50" fill="#bfe6ff" opacity=".35" stroke="#e8f0fe" stroke-width="5"/>
+        <path d="M64 -48 a40 40 0 0 1 24 -18" stroke="#fff" stroke-width="5" fill="none" opacity=".7" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </div>
+
+  <script>
+    // estrellas dispersas
+    var s = document.getElementById('stars'), h='';
+    for (var i=0;i<70;i++){
+      var sz=(Math.random()*2.5+1).toFixed(1);
+      h+='<span style="left:'+(Math.random()*100).toFixed(2)+'%;top:'+(Math.random()*100).toFixed(2)+'%;width:'+sz+'px;height:'+sz+'px;opacity:'+(Math.random()*.6+.3).toFixed(2)+'"></span>';
+    }
+    s.innerHTML=h;
+  </script>
+</body>
+</html>
