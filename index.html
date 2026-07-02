@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>🦕 El universo de Joaquín — Apoya sus sueños ✨</title>
+  <meta name="description" content="Hoy comienza la gran aventura de Joaquín. Un regalo de bautizo de su Padrino y Tío, Santi. Apoya sus sueños entre dinosaurios astronautas y estrellas." />
+
+  <!-- OG / WhatsApp preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="🦕 El universo de Joaquín — Apoya sus sueños ✨" />
+  <meta property="og:description" content="Hoy comienza tu gran aventura. Un regalo lleno de dinosaurios astronautas, estrellas y todo el amor del universo. · Today your great adventure begins." />
+  <meta property="og:locale" content="es_ES" />
+  <meta name="theme-color" content="#0f1b2d" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="🦕 El universo de Joaquín — Apoya sus sueños ✨" />
+  <meta name="twitter:description" content="Hoy comienza tu gran aventura · Today your great adventure begins" />
+
+  <!-- Favicon (dino emoji, inline) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦕</text></svg>" />
+
+  <!-- Google Fonts: Fredoka (display) + Nunito (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       VARIABLES / PALETA (tomada de fondo.jpeg)
+       ============================================================ */
+    :root {
+      --bg-deep: #0f1b2d;
+      --bg:      #1a2744;
+
+      --gold:  #fbbf24;
+      --cyan:  #38bdf8;
+      --red:   #ef4444;
+      --green: #22c55e;
+      --gray:  #94a3b8;
+      --purple:#a78bfa;
+
+      --white: #ffffff;
+      --soft:  #e8f0fe;
+      --muted: #b4c2df;
+
+      --maxw: 1120px;
+      --ease: cubic-bezier(.22,.61,.36,1);
+
+      --font-display: "Fredoka", "Nunito", system-ui, sans-serif;
+      --font-body: "Nunito", system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--soft);
+      background: var(--bg-deep);
+      line-height: 1.65;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100%;
+      background-image:
+        radial-gradient(1200px 700px at 15% -10%, rgba(56,189,248,.14), transparent 60%),
+        radial-gradient(1000px 700px at 95% 10%, rgba(167,139,250,.12), transparent 55%),
+        radial-gradient(900px 900px at 50% 120%, rgba(251,191,36,.08), transparent 60%),
+        linear-gradient(180deg, var(--bg-deep) 0%, var(--bg) 45%, var(--bg-deep) 100%);
+      background-attachment: fixed;
+    }
+    img, svg { display: block; max-width: 100%; }
+    ::selection { background: var(--gold); color: var(--bg-deep); }
+
+    /* ============================================================
+       ESTRELLAS DE FONDO
+       ============================================================ */
+    #stars, #stars2, #stars3 {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+    }
+    .star {
+      position: absolute; border-radius: 50%; background: #fff;
+      animation: twinkle var(--dur, 4s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+      will-change: opacity, transform;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: .15; transform: scale(.7); }
+      50%      { opacity: 1;   transform: scale(1.15); }
+    }
+    #stars3 { animation: drift 90s linear infinite; }
+    @keyframes drift { from { transform: translateY(0);} to { transform: translateY(-40px);} }
+    .sparkle {
+      position: absolute; pointer-events: none; color: var(--gold);
+      opacity: .85; animation: twinkle 5s ease-in-out infinite; z-index: 0;
+    }
+
+    section { position: relative; z-index: 1; }
+    .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: clamp(20px, 5vw, 48px); }
+    .accent { color: var(--gold); }
+
+    /* ============================================================
+       BOTÓN DE IDIOMA (fijo arriba a la derecha)
+       ============================================================ */
+    .lang-toggle {
+      position: fixed;
+      top: 16px; right: 16px;
+      z-index: 80;
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--font-display); font-weight: 600;
+      font-size: .82rem; letter-spacing: .5px;
+      color: var(--soft);
+      background: rgba(15,27,45,.72);
+      border: 1px solid rgba(56,189,248,.4);
+      border-radius: 999px;
+      padding: 8px 14px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.35);
+      transition: transform .2s var(--ease), background .2s, border-color .2s;
+    }
+    .lang-toggle:hover { transform: translateY(-2px); background: rgba(34,50,87,.85); border-color: var(--cyan); }
+    .lang-toggle:active { transform: scale(.95); }
+    .lang-toggle svg { width: 16px; height: 16px; }
+
+    /* ============================================================
+       SCROLL REVEAL
+       ============================================================ */
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity .9s var(--ease), transform .9s var(--ease);
+      transition-delay: calc(var(--i, 0) * 90ms);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ============================================================
+       DINOS FLOTANTES
+       ============================================================ */
+    .float { animation: float 6s ease-in-out infinite; will-change: transform; }
+    .float.d1 { animation-duration: 6.5s; animation-delay: -1s; }
+    .float.d2 { animation-duration: 7.5s; animation-delay: -2.5s; }
+    .float.d3 { animation-duration: 8s;   animation-delay: -0.5s; }
+    .float.d4 { animation-duration: 6.8s; animation-delay: -3.2s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50%      { transform: translateY(-16px) rotate(-1.5deg); }
+    }
+    .dino { filter: drop-shadow(0 10px 18px rgba(0,0,0,.35)); }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero {
+      min-height: 100svh; display: grid; place-items: center; text-align: center;
+      padding: 90px 0 60px; overflow: hidden;
+    }
+    .hero-inner { position: relative; z-index: 2; }
+    .hero-dinos { position: relative; height: clamp(160px, 28vw, 250px); margin-bottom: 8px; }
+    .hero-dinos > * { position: absolute; }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-display); font-weight: 600; letter-spacing: .5px;
+      color: var(--cyan); background: rgba(56,189,248,.10);
+      border: 1px solid rgba(56,189,248,.35); padding: 6px 16px; border-radius: 999px;
+      font-size: clamp(.72rem, 2.6vw, .9rem); margin-bottom: 22px; text-transform: uppercase;
+    }
+    h1.hero-title {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: clamp(2.1rem, 8vw, 4.6rem); line-height: 1.02;
+      color: var(--white); letter-spacing: -.5px; text-shadow: 0 6px 30px rgba(0,0,0,.35);
+    }
+    .hero-sub {
+      margin: 22px auto 0; max-width: 640px;
+      font-size: clamp(1rem, 3.4vw, 1.3rem); color: var(--soft); font-weight: 600;
+    }
+    .scroll-cue {
+      margin-top: 46px; display: inline-flex; flex-direction: column; align-items: center; gap: 10px;
+      color: var(--muted); font-size: .8rem; font-family: var(--font-display);
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+    .scroll-cue .rocket-sep { animation: float 3.5s ease-in-out infinite; }
+    .scroll-cue .chevron {
+      width: 26px; height: 26px; border-right: 3px solid var(--cyan); border-bottom: 3px solid var(--cyan);
+      transform: rotate(45deg); animation: nudge 1.8s ease-in-out infinite; border-radius: 3px;
+    }
+    @keyframes nudge {
+      0%, 100% { transform: rotate(45deg) translate(0,0); opacity: .4; }
+      50%      { transform: rotate(45deg) translate(5px,5px); opacity: 1; }
+    }
+
+    /* COHETE QUE CRUZA */
+    #rocket-fly {
+      position: fixed; left: -140px; top: 22%; z-index: 1; pointer-events: none;
+      animation: crossScreen 26s linear infinite; will-change: transform; opacity: .9;
+    }
+    @keyframes crossScreen {
+      0%   { transform: translate(0, 0) rotate(8deg); opacity: 0; }
+      8%   { opacity: .95; } 92% { opacity: .95; }
+      100% { transform: translate(115vw, -180px) rotate(8deg); opacity: 0; }
+    }
+
+    /* ============================================================
+       CARTA
+       ============================================================ */
+    .letter { padding: clamp(60px, 12vw, 120px) 0; }
+    .section-head { text-align: center; margin-bottom: clamp(30px, 6vw, 56px); }
+    .kicker {
+      font-family: var(--font-display); color: var(--cyan); font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase; font-size: .82rem; margin-bottom: 10px;
+    }
+    h2 {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: clamp(1.8rem, 6vw, 3.1rem); color: var(--white); line-height: 1.08;
+    }
+    .letter-card {
+      position: relative; max-width: 760px; margin-inline: auto;
+      background: linear-gradient(160deg, rgba(34,50,87,.75), rgba(15,27,45,.75));
+      border: 1px solid rgba(56,189,248,.20); border-radius: 28px;
+      padding: clamp(28px, 6vw, 56px);
+      box-shadow: 0 30px 70px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+      backdrop-filter: blur(6px);
+    }
+    .letter-card p { font-size: clamp(1rem, 2.8vw, 1.18rem); margin-bottom: 1.2em; }
+    .letter-card p:last-child { margin-bottom: 0; }
+    .letter-sign {
+      margin-top: 1.6em !important; font-family: var(--font-display);
+      font-size: clamp(1.1rem, 3.2vw, 1.5rem) !important; color: var(--gold); font-weight: 600;
+    }
+    .letter-deco { position: absolute; z-index: 0; }
+    .letter-deco.left  { left: -78px;  top: 30px; }
+    .letter-deco.right { right: -74px; bottom: 20px; }
+    @media (max-width: 900px) { .letter-deco { display: none; } }
+
+    /* ============================================================
+       SUEÑOS
+       ============================================================ */
+    .dreams { padding: clamp(50px, 10vw, 100px) 0; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 3vw, 26px); margin-top: 10px; }
+    .card {
+      position: relative;
+      background: linear-gradient(160deg, rgba(34,50,87,.85), rgba(20,30,54,.9));
+      border: 1px solid rgba(255,255,255,.08); border-radius: 24px;
+      padding: clamp(22px, 4vw, 34px) clamp(18px, 3vw, 28px); text-align: center;
+      transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
+      overflow: hidden; isolation: isolate;
+    }
+    .card::before {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(120px 120px at 50% 0%, var(--glow, var(--cyan)), transparent 70%);
+      opacity: 0; transition: opacity .35s var(--ease); z-index: -1;
+    }
+    .card:hover, .card:focus-within {
+      transform: translateY(-10px) scale(1.03);
+      border-color: color-mix(in srgb, var(--glow, var(--cyan)) 60%, transparent);
+      box-shadow: 0 24px 50px rgba(0,0,0,.4), 0 0 42px color-mix(in srgb, var(--glow) 45%, transparent);
+    }
+    .card:hover::before, .card:focus-within::before { opacity: .28; }
+    .card-icon {
+      width: clamp(62px, 14vw, 82px); height: clamp(62px, 14vw, 82px); margin: 0 auto 16px;
+      display: grid; place-items: center; background: rgba(255,255,255,.06); border-radius: 20px;
+    }
+    .card-icon svg { width: 68%; height: 68%; }
+    .card h3 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.15rem, 3.4vw, 1.4rem); color: var(--white); }
+    .card p { font-size: clamp(.88rem, 2.6vw, .98rem); color: var(--muted); margin-top: 10px; }
+
+    /* ============================================================
+       APOYA SUS SUEÑOS
+       ============================================================ */
+    .support { padding: clamp(50px, 10vw, 100px) 0 clamp(60px, 10vw, 110px); }
+    .support-inner { max-width: 640px; margin-inline: auto; text-align: center; }
+    .support-inner > p.lead { margin: 18px auto 0; font-size: clamp(1rem, 3vw, 1.15rem); color: var(--soft); max-width: 520px; }
+    .support-inner .sub { display:block; color: var(--gold); font-family: var(--font-display); font-weight: 600; margin-top: 10px; letter-spacing: .5px; }
+
+    .tag-card {
+      margin: clamp(28px, 6vw, 40px) auto 0; max-width: 460px;
+      background: linear-gradient(140deg, #1e2c4d, #12203a);
+      border: 1px solid rgba(56,189,248,.35); border-radius: 22px; padding: 26px 24px;
+      box-shadow: 0 26px 60px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.08);
+      position: relative; overflow: hidden; text-align: left;
+    }
+    .tag-card::after {
+      content: ""; position: absolute; top: -50%; left: -20%; width: 60%; height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent); transform: rotate(18deg);
+    }
+    .tag-card .tag-label { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 1.5px; font-size: .72rem; color: var(--cyan); margin-bottom: 6px; }
+    .tag-card .tag-value {
+      font-family: var(--font-display); font-weight: 700; font-size: clamp(1.3rem, 5vw, 1.7rem);
+      color: var(--white); word-break: break-word; display: flex; align-items: center; gap: 10px;
+    }
+    .tag-card .tag-hint { font-size: .8rem; color: var(--muted); margin-top: 8px; }
+    .copy-btn {
+      margin-left: auto; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18);
+      color: var(--soft); font-family: var(--font-body); font-weight: 700; font-size: .74rem;
+      padding: 6px 12px; border-radius: 999px; cursor: pointer; transition: background .25s, transform .15s; white-space: nowrap;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,.16); }
+    .copy-btn:active { transform: scale(.94); }
+
+    .cta-btn {
+      position: relative; margin: clamp(26px,5vw,34px) auto 0;
+      display: inline-flex; align-items: center; gap: 12px;
+      font-family: var(--font-display); font-weight: 700; font-size: clamp(1.05rem, 3.4vw, 1.35rem);
+      color: var(--bg-deep); background: linear-gradient(135deg, var(--gold), #f59e0b);
+      border: none; border-radius: 999px; padding: 16px 38px; cursor: pointer;
+      box-shadow: 0 16px 40px rgba(251,191,36,.35), inset 0 1px 0 rgba(255,255,255,.5);
+      transition: transform .25s var(--ease), box-shadow .25s var(--ease); overflow: visible;
+    }
+    .cta-btn:hover { transform: translateY(-4px) scale(1.04); box-shadow: 0 22px 54px rgba(251,191,36,.5); }
+    .cta-btn:active { transform: translateY(-1px) scale(1); }
+    .cta-note { margin-top: 14px; font-size: .8rem; color: var(--muted); }
+    .confetti-piece { position: fixed; z-index: 60; pointer-events: none; will-change: transform, opacity; }
+
+    /* TOAST */
+    .toast {
+      position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 20px);
+      z-index: 90; max-width: 88vw;
+      background: rgba(15,27,45,.95); color: var(--soft);
+      border: 1px solid rgba(56,189,248,.4); border-radius: 16px;
+      padding: 14px 20px; font-weight: 700; font-size: .92rem; text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,.5); backdrop-filter: blur(8px);
+      opacity: 0; pointer-events: none; transition: opacity .3s var(--ease), transform .3s var(--ease);
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+    .toast small { display: block; font-weight: 600; color: var(--muted); margin-top: 3px; font-size: .82rem; }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer { position: relative; z-index: 1; text-align: center; padding: clamp(48px, 9vw, 80px) 0 40px; border-top: 1px solid rgba(255,255,255,.08); }
+    footer .love { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.1rem, 4vw, 1.6rem); color: var(--white); }
+    footer .credit { margin-top: 18px; color: var(--soft); font-weight: 700; }
+    footer .year { margin-top: 20px; font-family: var(--font-display); color: var(--gold); letter-spacing: 4px; font-weight: 600; }
+    footer .foot-dino { margin: 0 auto 22px; width: 92px; animation: float 5s ease-in-out infinite; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 420px) { .cards { grid-template-columns: 1fr; } }
+
+    /* REDUCIR MOVIMIENTO */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important; animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important; scroll-behavior: auto !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+      #rocket-fly { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- BOTÓN IDIOMA -->
+  <button class="lang-toggle" id="langToggle" type="button" aria-label="Change language">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" stroke="currentColor" stroke-width="1.8"/>
+    </svg>
+    <span id="langLabel">EN</span>
+  </button>
+
+  <!-- ESTRELLAS -->
+  <div id="stars"  aria-hidden="true"></div>
+  <div id="stars2" aria-hidden="true"></div>
+  <div id="stars3" aria-hidden="true"></div>
+
+  <!-- COHETE -->
+  <div id="rocket-fly" aria-hidden="true">
+    <svg width="130" height="70" viewBox="0 0 130 70" fill="none">
+      <path d="M6 35 C 20 25, 20 45, 6 35 Z" fill="#ef4444"/>
+      <path d="M0 35 C 18 28, 18 42, 0 35 Z" fill="#fbbf24"/>
+      <path d="M20 35 C 40 12, 90 12, 118 35 C 90 58, 40 58, 20 35 Z" fill="#d9cdb0"/>
+      <path d="M92 22 L112 10 L108 30 Z" fill="#ef4444"/>
+      <path d="M92 48 L112 60 L108 40 Z" fill="#ef4444"/>
+      <circle cx="70" cy="26" r="15" fill="#bfe6ff" opacity=".55" stroke="#e8f0fe" stroke-width="2"/>
+      <path d="M62 33 q2 -14 10 -14 q9 0 8 10 l4 2 q3 5 -3 5 l-16 0 q-5 0 -3 -3 Z" fill="#38bdf8"/>
+      <circle cx="76" cy="24" r="1.6" fill="#0f1b2d"/>
+    </svg>
+  </div>
+
+  <!-- ============================================================
+       1. HERO
+       ============================================================ -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+
+      <div class="hero-dinos" aria-hidden="true">
+        <!-- planeta cyan sonriente con anillo -->
+        <svg class="float d3" style="left:4%; top:6px;" width="96" height="80" viewBox="0 0 96 80">
+          <ellipse cx="48" cy="42" rx="42" ry="12" fill="none" stroke="#38bdf8" stroke-width="4" opacity=".7"/>
+          <circle cx="48" cy="38" r="24" fill="#38bdf8"/>
+          <circle cx="41" cy="34" r="2.4" fill="#0f1b2d"/><circle cx="55" cy="34" r="2.4" fill="#0f1b2d"/>
+          <path d="M40 44 q8 7 16 0" stroke="#0f1b2d" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        </svg>
+        <!-- sol dorado sonriente -->
+        <svg class="float d1" style="left:44%; top:-4px;" width="82" height="82" viewBox="0 0 84 84">
+          <circle cx="42" cy="42" r="26" fill="#fbbf24"/>
+          <path d="M34 40 q3 -4 6 0" stroke="#0f1b2d" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+          <path d="M44 40 q3 -4 6 0" stroke="#0f1b2d" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+          <path d="M36 50 q6 6 12 0" stroke="#0f1b2d" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+        </svg>
+        <!-- dino verde (hero, derecha) — inyectado por JS -->
+        <span class="dino float d2" data-dino="green" data-w="150" style="left:56%; top:34px;"></span>
+        <!-- dino rojo (hero, izquierda) — inyectado por JS -->
+        <span class="dino float d4" data-dino="red" data-w="128" style="left:20%; top:60px;"></span>
+      </div>
+
+      <span class="eyebrow" data-es="🦕 Bautizo de Joaquín · 2026" data-en="🦕 Joaquín's Baptism · 2026"></span>
+
+      <h1 class="hero-title"
+          data-es="¡Bienvenido al universo, <span class='accent'>Joaquín</span>!"
+          data-en="Welcome to the universe, <span class='accent'>Joaquín</span>!"></h1>
+
+      <p class="hero-sub"
+         data-es="Hoy comienza tu gran aventura"
+         data-en="Today your great adventure begins"></p>
+
+      <div class="scroll-cue" aria-hidden="true">
+        <svg class="rocket-sep" width="40" height="40" viewBox="0 0 40 40">
+          <path d="M20 3 C 28 10, 30 22, 20 34 C 10 22, 12 10, 20 3 Z" fill="#e8f0fe"/>
+          <circle cx="20" cy="16" r="4.5" fill="#38bdf8"/>
+          <path d="M12 26 L7 33 L15 30 Z" fill="#ef4444"/><path d="M28 26 L33 33 L25 30 Z" fill="#ef4444"/>
+          <path d="M17 34 q3 6 6 0" fill="#fbbf24"/>
+        </svg>
+        <span data-es="Explora" data-en="Scroll"></span>
+        <span class="chevron"></span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       2. CARTA
+       ============================================================ -->
+  <section class="letter">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="kicker" data-es="Una carta para ti" data-en="A letter for you"></div>
+        <h2 data-es="Querido Joaquín" data-en="Dear Joaquín"></h2>
+      </div>
+
+      <div class="letter-card reveal">
+        <span class="letter-deco left float d2" data-dino="gray" data-w="128" aria-hidden="true"></span>
+        <span class="letter-deco right float d4" data-dino="blue" data-w="128" aria-hidden="true"></span>
+
+        <p data-es="Hoy el universo entero se detiene un momento para darte la bienvenida. Eres pequeño, pero tus sueños ya son <span class='accent'>infinitos</span> como las estrellas que brillan sobre ti."
+           data-en="Today the whole universe pauses for a moment to welcome you. You are small, but your dreams are already as <span class='accent'>infinite</span> as the stars shining above you."></p>
+
+        <p data-es="Puedes ser quien tú quieras ser: astronauta, artista, soñador o explorador de mundos que nadie ha imaginado todavía. No hay planeta demasiado lejano ni estrella demasiado alta."
+           data-en="You can be whoever you want to be: astronaut, artist, dreamer, or explorer of worlds no one has imagined yet. No planet is too far, no star too high."></p>
+
+        <p data-es="El universo entero está a tus pies, Joaquín. Y pase lo que pase, en cada despegue y en cada aterrizaje, siempre — <span class='accent'>siempre</span> — tendrás quien te sostenga y te impulse hacia arriba."
+           data-en="The entire universe is at your feet, Joaquín. And no matter what, at every take-off and every landing, you will always — <span class='accent'>always</span> — have someone to hold you and push you higher."></p>
+
+        <p class="letter-sign"
+           data-es="Con todo mi cariño, tu Padrino y Tío, Santi 🦕"
+           data-en="With all my love, your Godfather and Uncle, Santi 🦕"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       3. SUEÑOS
+       ============================================================ -->
+  <section class="dreams">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="kicker" data-es="Sueña en grande" data-en="Dream big"></div>
+        <h2 data-es="¿Qué será Joaquín?" data-en="What will Joaquín become?"></h2>
+      </div>
+
+      <div class="cards">
+        <article class="card reveal" style="--i:0; --glow: var(--cyan);">
+          <div class="card-icon"><svg viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="26" r="16" fill="#e8f0fe"/>
+            <path d="M20 24 a12 12 0 0 1 24 0 Z" fill="#38bdf8" opacity=".55"/>
+            <rect x="24" y="40" width="16" height="18" rx="7" fill="#cbd5e1"/>
+            <rect x="14" y="42" width="9" height="6" rx="3" fill="#cbd5e1"/>
+            <rect x="41" y="42" width="9" height="6" rx="3" fill="#cbd5e1"/>
+            <circle cx="32" cy="26" r="4" fill="#fbbf24"/>
+          </svg></div>
+          <h3 data-es="Astronauta" data-en="Astronaut"></h3>
+          <p data-es="Para tocar las estrellas con tus propias manos." data-en="To touch the stars with your own hands."></p>
+        </article>
+
+        <article class="card reveal" style="--i:1; --glow: var(--red);">
+          <div class="card-icon"><svg viewBox="0 0 64 64" fill="none">
+            <path d="M32 10 C 16 10, 8 22, 12 36 c 3 10 14 8 16 2 c 2 -5 10 -3 12 2 c 6 8 16 -2 12 -14 C 48 16, 44 10, 32 10 Z" fill="#e8f0fe"/>
+            <circle cx="22" cy="24" r="3.5" fill="#ef4444"/><circle cx="32" cy="20" r="3.5" fill="#fbbf24"/>
+            <circle cx="42" cy="24" r="3.5" fill="#38bdf8"/><circle cx="24" cy="34" r="3.5" fill="#22c55e"/>
+            <path d="M40 44 l10 12" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/><circle cx="52" cy="58" r="4" fill="#fbbf24"/>
+          </svg></div>
+          <h3 data-es="Artista" data-en="Artist"></h3>
+          <p data-es="Para pintar el mundo con tus colores." data-en="To paint the world with your colors."></p>
+        </article>
+
+        <article class="card reveal" style="--i:2; --glow: var(--green);">
+          <div class="card-icon"><svg viewBox="0 0 64 64" fill="none">
+            <path d="M27 8 h10 v16 l12 24 a6 6 0 0 1 -5 9 H20 a6 6 0 0 1 -5 -9 l12 -24 Z" fill="#e8f0fe"/>
+            <path d="M24 34 l16 0 l8 16 a4 4 0 0 1 -4 6 H20 a4 4 0 0 1 -4 -6 Z" fill="#22c55e" opacity=".8"/>
+            <circle cx="28" cy="46" r="3" fill="#fbbf24"/><circle cx="36" cy="52" r="2.5" fill="#38bdf8"/>
+            <rect x="25" y="6" width="14" height="4" rx="2" fill="#94a3b8"/>
+          </svg></div>
+          <h3 data-es="Científico" data-en="Scientist"></h3>
+          <p data-es="Para descubrir los secretos del cosmos." data-en="To uncover the secrets of the cosmos."></p>
+        </article>
+
+        <article class="card reveal" style="--i:3; --glow: var(--gold);">
+          <div class="card-icon"><svg viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="32" r="22" fill="#e8f0fe"/>
+            <circle cx="32" cy="32" r="22" fill="none" stroke="#94a3b8" stroke-width="2"/>
+            <path d="M32 16 l6 14 l-6 18 l-6 -18 Z" fill="#ef4444"/><path d="M32 16 l6 14 l-6 4 Z" fill="#fbbf24"/>
+            <circle cx="32" cy="32" r="3" fill="#0f1b2d"/>
+          </svg></div>
+          <h3 data-es="Explorador" data-en="Explorer"></h3>
+          <p data-es="Para encontrar caminos que nadie ha visto." data-en="To find paths no one has seen."></p>
+        </article>
+
+        <article class="card reveal" style="--i:4; --glow: var(--purple);">
+          <div class="card-icon"><svg viewBox="0 0 64 64" fill="none">
+            <path d="M26 46 V18 l22 -6 v24" stroke="#e8f0fe" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <circle cx="20" cy="46" r="7" fill="#a78bfa"/><circle cx="42" cy="42" r="7" fill="#fbbf24"/>
+            <path d="M26 22 l22 -6" stroke="#e8f0fe" stroke-width="4" stroke-linecap="round"/><circle cx="52" cy="16" r="2.5" fill="#38bdf8"/>
+          </svg></div>
+          <h3 data-es="Músico" data-en="Musician"></h3>
+          <p data-es="Para llenar el universo de melodías." data-en="To fill the universe with melodies."></p>
+        </article>
+
+        <article class="card reveal" style="--i:5; --glow: var(--cyan);">
+          <div class="card-icon"><svg viewBox="0 0 64 64" fill="none">
+            <path d="M32 8 a16 16 0 0 1 10 28 c -2 2 -3 4 -3 7 H25 c 0 -3 -1 -5 -3 -7 A16 16 0 0 1 32 8 Z" fill="#fbbf24"/>
+            <rect x="25" y="44" width="14" height="4" rx="2" fill="#94a3b8"/><rect x="27" y="50" width="10" height="4" rx="2" fill="#94a3b8"/>
+            <path d="M32 20 v10 M27 26 h10" stroke="#0f1b2d" stroke-width="2.4" stroke-linecap="round"/>
+          </svg></div>
+          <h3 data-es="Inventor" data-en="Inventor"></h3>
+          <p data-es="Para crear cosas que aún no existen." data-en="To create things that don't exist yet."></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       4. APOYA SUS SUEÑOS
+       ============================================================ -->
+  <section class="support">
+    <div class="wrap support-inner">
+      <div class="section-head reveal" style="margin-bottom:0;">
+        <div class="kicker" data-es="Un pequeño impulso" data-en="A little boost"></div>
+        <h2 data-es="Apoya sus sueños" data-en="Support his dreams"></h2>
+      </div>
+
+      <p class="lead reveal"
+         data-es="Cada aporte, grande o pequeño, es una estrella más en el cielo de Joaquín: un granito para su futuro, su educación y todas las aventuras que están por venir.<span class='sub'>Cada estrella cuenta ✨</span>"
+         data-en="Every gift, big or small, is one more star in Joaquín's sky: a little something for his future, his education and all the adventures to come.<span class='sub'>Every star counts ✨</span>"></p>
+
+      <!-- 👉 REEMPLAZAR AQUÍ: TAG de transferencia (Nequi / Bancolombia) 👈 -->
+      <!-- Cuenta de ahorros para niños a nombre de Joaquín García Hernández. -->
+      <!-- Cambia el texto de #transfer-tag por el TAG/número real. Busca: TAG_NEQUI_O_BANCOLOMBIA -->
+      <div class="tag-card reveal">
+        <div class="tag-label" data-es="Cuenta · Transferencia" data-en="Account · Transfer"></div>
+        <div class="tag-value">
+          <span id="transfer-tag">[TAG_NEQUI_O_BANCOLOMBIA]</span>
+          <button class="copy-btn" type="button" id="copyTag" data-es="Copiar" data-en="Copy" aria-label="Copiar TAG"></button>
+        </div>
+        <div class="tag-hint"
+             data-es="Cuenta de ahorros de Joaquín García Hernández (cuenta para niños)"
+             data-en="Joaquín García Hernández's savings account (children's account)"></div>
+      </div>
+
+      <button class="cta-btn reveal" type="button" id="ctaBtn"
+              data-es="Transferir un regalo" data-en="Send a gift" aria-label="Transferir un regalo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 3 C 16 8, 17 14, 12 21 C 7 14, 8 8, 12 3 Z" fill="#0f1b2d"/>
+          <circle cx="12" cy="9" r="2.4" fill="#38bdf8"/>
+        </svg>
+        <span id="ctaLabel"></span>
+      </button>
+      <p class="cta-note reveal"
+         data-es="Toca el botón: copiamos la cuenta para que la pegues en tu app bancaria 💫"
+         data-en="Tap the button: we'll copy the account so you can paste it in your banking app 💫"></p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       5. FOOTER
+       ============================================================ -->
+  <footer>
+    <div class="wrap">
+      <span class="foot-dino" data-dino="green" data-w="92" data-helmet="1" aria-hidden="true"></span>
+      <p class="love" data-es="Con todo el amor del universo" data-en="With all the love in the universe"></p>
+      <p class="credit"
+         data-es="🦕 Un regalo de tu Padrino y Tío, Santi"
+         data-en="🦕 A gift from your Godfather and Uncle, Santi"></p>
+      <p class="year">2026</p>
+    </div>
+  </footer>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    /* ============================================================
+       DINOSAURIO ASTRONAUTA (saurópodo cuello largo) — SVG generado
+       Construcción: cabeza óvalo + cuello curvo + cuerpo grande +
+       cola + patas + crestas dorsales + burbuja/casco. (Ref: guías de
+       dibujo de brontosaurio -> óvalos y curvas simples)
+       ============================================================ */
+    const DINO_COLORS = {
+      green: ['#22c55e', '#16a34a'],
+      red:   ['#ef4444', '#dc2626'],
+      gray:  ['#94a3b8', '#64748b'],
+      cyan:  ['#38bdf8', '#0ea5e9'],
+      blue:  ['#7cc4f5', '#4f96cf'],
+    };
+
+    function dinoSVG(main, dark, w, flip) {
+      const g = flip ? '<g transform="scale(-1,1) translate(-170,0)">' : '<g>';
+      return `
+      <svg class="dino-svg" width="${w}" viewBox="0 0 170 155" fill="none" xmlns="http://www.w3.org/2000/svg">
+        ${g}
+          <!-- cola -->
+          <path d="M120 92 C 148 86, 158 70, 166 60 C 160 82, 150 100, 122 102 Z" fill="${main}"/>
+          <!-- patas traseras (tono oscuro) -->
+          <rect x="60" y="108" width="14" height="30" rx="7" fill="${dark}"/>
+          <rect x="104" y="108" width="14" height="30" rx="7" fill="${dark}"/>
+          <!-- cuerpo -->
+          <ellipse cx="86" cy="92" rx="44" ry="29" fill="${main}"/>
+          <!-- patas delanteras -->
+          <rect x="74" y="110" width="14" height="30" rx="7" fill="${main}"/>
+          <rect x="116" y="108" width="14" height="28" rx="7" fill="${main}"/>
+          <!-- cuello (curva gruesa hacia la cabeza) -->
+          <path d="M62 78 C 42 64, 36 42, 48 26 L 66 34 C 62 54, 74 70, 80 80 Z" fill="${main}"/>
+          <!-- crestas dorsales -->
+          <path d="M82 66 l6 -10 l6 10 Z M102 64 l6 -10 l6 10 Z M120 70 l5 -9 l5 9 Z" fill="${dark}"/>
+          <!-- cabeza -->
+          <ellipse cx="49" cy="24" rx="17" ry="13" fill="${main}"/>
+          <!-- hocico -->
+          <path d="M33 26 q-12 -1 -13 6 q0 6 13 4 Z" fill="${main}"/>
+          <circle cx="24" cy="27" r="1.7" fill="#0f1b2d"/>
+          <!-- ojo + sonrisa -->
+          <circle cx="49" cy="19" r="2.9" fill="#0f1b2d"/>
+          <path d="M38 28 q9 6 18 1" stroke="#0f1b2d" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <!-- casco / burbuja espacial -->
+          <circle cx="47" cy="24" r="25" fill="#bfe6ff" opacity=".35" stroke="#e8f0fe" stroke-width="2.5"/>
+          <path d="M33 14 a20 20 0 0 1 12 -9" stroke="#fff" stroke-width="2.5" fill="none" opacity=".7" stroke-linecap="round"/>
+        </g>
+      </svg>`;
+    }
+
+    (function injectDinos() {
+      document.querySelectorAll('[data-dino]').forEach(el => {
+        const key = el.getAttribute('data-dino');
+        const [main, dark] = DINO_COLORS[key] || DINO_COLORS.green;
+        const w = el.getAttribute('data-w') || 140;
+        const flip = el.hasAttribute('data-flip');
+        el.innerHTML = dinoSVG(main, dark, w, flip);
+      });
+    })();
+
+    /* ============================================================
+       i18n — detecta idioma del navegador, alterna con el botón
+       ============================================================ */
+    const I18N = (function () {
+      const saved = localStorage.getItem('joaquin-lang');
+      const browser = (navigator.language || 'es').toLowerCase().startsWith('es') ? 'es' : 'en';
+      let lang = saved || browser;
+
+      const strings = {
+        es: { toggle: 'EN', toastTitle: '¡Cuenta copiada! ✓', toastSub: 'Pégala en tu app de banco para transferir 💫', copyErr: 'Copia manual: ' },
+        en: { toggle: 'ES', toastTitle: 'Account copied! ✓', toastSub: 'Paste it in your banking app to send the gift 💫', copyErr: 'Copy manually: ' },
+      };
+
+      function apply() {
+        document.documentElement.lang = lang;
+        document.querySelectorAll('[data-es]').forEach(el => {
+          const val = el.getAttribute('data-' + lang);
+          if (val != null) el.innerHTML = val;
+        });
+        document.getElementById('langLabel').textContent = strings[lang].toggle;
+        // botón CTA usa span interno (el data-es está en el <button>, ok con innerHTML arriba,
+        // pero re-inyectamos el icono): simplificamos poniendo texto en #ctaLabel
+      }
+
+      // El botón CTA tiene icono + texto; para no perder el icono al setear innerHTML,
+      // movemos su traducción al span #ctaLabel manualmente.
+      function fixCta() {
+        const btn = document.getElementById('ctaBtn');
+        const label = document.getElementById('ctaLabel');
+        label.textContent = btn.getAttribute('data-' + lang);
+      }
+
+      return {
+        get lang() { return lang; },
+        t(k) { return strings[lang][k]; },
+        apply() {
+          // proteger el CTA: quitamos data-es/en temporalmente para que el bucle no lo pise
+          const btn = document.getElementById('ctaBtn');
+          const es = btn.getAttribute('data-es'), en = btn.getAttribute('data-en');
+          btn.removeAttribute('data-es'); btn.removeAttribute('data-en');
+          apply();
+          btn.setAttribute('data-es', es); btn.setAttribute('data-en', en);
+          fixCta();
+        },
+        toggle() {
+          lang = lang === 'es' ? 'en' : 'es';
+          localStorage.setItem('joaquin-lang', lang);
+          this.apply();
+        },
+      };
+    })();
+
+    I18N.apply();
+    document.getElementById('langToggle').addEventListener('click', () => I18N.toggle());
+
+    /* ============================================================
+       ESTRELLAS DE FONDO
+       ============================================================ */
+    (function makeStars() {
+      const layers = [
+        { el: document.getElementById('stars'),  count: 60, min: 1, max: 2 },
+        { el: document.getElementById('stars2'), count: 40, min: 1.5, max: 3 },
+        { el: document.getElementById('stars3'), count: 30, min: 2, max: 3.5 },
+      ];
+      layers.forEach(({ el, count, min, max }) => {
+        const f = document.createDocumentFragment();
+        for (let i = 0; i < count; i++) {
+          const s = document.createElement('span');
+          s.className = 'star';
+          const size = (Math.random() * (max - min) + min).toFixed(1);
+          s.style.width = size + 'px'; s.style.height = size + 'px';
+          s.style.left = (Math.random() * 100).toFixed(2) + '%';
+          s.style.top = (Math.random() * 100).toFixed(2) + '%';
+          s.style.setProperty('--dur', (Math.random() * 4 + 2.5).toFixed(1) + 's');
+          s.style.setProperty('--delay', (Math.random() * -6).toFixed(1) + 's');
+          f.appendChild(s);
+        }
+        el.appendChild(f);
+      });
+      const spread = document.getElementById('stars2');
+      [[12,18],[80,12],[68,70],[24,64],[90,44],[46,30],[8,80],[58,88]].forEach(([x, y], idx) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'sparkle';
+        wrap.style.left = x + '%'; wrap.style.top = y + '%';
+        wrap.style.setProperty('--delay', (idx * -0.7) + 's');
+        wrap.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 0 C9 6 10 7 16 8 C10 9 9 10 8 16 C7 10 6 9 0 8 C6 7 7 6 8 0 Z" fill="currentColor"/></svg>';
+        spread.appendChild(wrap);
+      });
+    })();
+
+    /* ============================================================
+       SCROLL REVEAL
+       ============================================================ */
+    (function reveals() {
+      const els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('visible')); return; }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) { entry.target.classList.add('visible'); io.unobserve(entry.target); }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+      els.forEach(e => io.observe(e));
+    })();
+
+    /* ============================================================
+       PARALAJE
+       ============================================================ */
+    (function parallax() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const l2 = document.getElementById('stars2'), l3 = document.getElementById('stars3');
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (ticking) return; ticking = true;
+        requestAnimationFrame(() => {
+          const y = window.scrollY;
+          l2.style.transform = 'translateY(' + (y * 0.06) + 'px)';
+          l3.style.transform = 'translateY(' + (y * -0.10) + 'px)';
+          ticking = false;
+        });
+      }, { passive: true });
+    })();
+
+    /* ============================================================
+       COPIAR + TOAST + CTA
+       ============================================================ */
+    async function copyText(text) {
+      try { await navigator.clipboard.writeText(text); return true; }
+      catch (e) {
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        let ok = false; try { ok = document.execCommand('copy'); } catch (_) {}
+        document.body.removeChild(ta); return ok;
+      }
+    }
+
+    let toastTimer;
+    function showToast(title, sub) {
+      const t = document.getElementById('toast');
+      t.innerHTML = title + (sub ? '<small>' + sub + '</small>' : '');
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+    }
+
+    (function copyTagBtn() {
+      const btn = document.getElementById('copyTag');
+      const tag = document.getElementById('transfer-tag');
+      btn.addEventListener('click', async () => {
+        const ok = await copyText(tag.textContent.trim());
+        if (ok) showToast(I18N.t('toastTitle'), I18N.t('toastSub'));
+        else showToast(I18N.t('copyErr') + tag.textContent.trim(), '');
+      });
+    })();
+
+    (function ctaButton() {
+      const btn = document.getElementById('ctaBtn');
+      const tag = document.getElementById('transfer-tag');
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const colors = ['#fbbf24', '#38bdf8', '#ef4444', '#22c55e', '#a78bfa', '#ffffff'];
+      let cooling = false;
+
+      function burst() {
+        if (reduce) return;
+        const rect = btn.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2, N = 20;
+        for (let i = 0; i < N; i++) {
+          const p = document.createElement('div');
+          p.className = 'confetti-piece';
+          const color = colors[(Math.random() * colors.length) | 0];
+          if (Math.random() > 0.5) {
+            p.innerHTML = '<svg width="14" height="14" viewBox="0 0 16 16"><path d="M8 0 C9 6 10 7 16 8 C10 9 9 10 8 16 C7 10 6 9 0 8 C6 7 7 6 8 0 Z" fill="' + color + '"/></svg>';
+          } else {
+            p.style.width = '9px'; p.style.height = '9px'; p.style.background = color; p.style.borderRadius = '2px';
+          }
+          p.style.left = cx + 'px'; p.style.top = cy + 'px';
+          document.body.appendChild(p);
+          const angle = (Math.PI * 2 * i) / N + Math.random() * 0.5;
+          const dist = 60 + Math.random() * 90;
+          const dx = Math.cos(angle) * dist, dy = Math.sin(angle) * dist - 40;
+          const rot = (Math.random() * 720 - 360);
+          p.animate([
+            { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+            { transform: 'translate(' + dx + 'px,' + (dy + 120) + 'px) rotate(' + rot + 'deg)', opacity: 0 }
+          ], { duration: 900 + Math.random() * 500, easing: 'cubic-bezier(.2,.7,.3,1)' }).onfinish = () => p.remove();
+        }
+      }
+
+      // click => copiar cuenta + confetti + toast (acción real)
+      btn.addEventListener('click', async () => {
+        burst();
+        const ok = await copyText(tag.textContent.trim());
+        if (ok) showToast(I18N.t('toastTitle'), I18N.t('toastSub'));
+        else showToast(I18N.t('copyErr') + tag.textContent.trim(), '');
+      });
+      // hover => solo confetti (con enfriamiento)
+      btn.addEventListener('mouseenter', () => {
+        if (cooling) return; cooling = true; burst();
+        setTimeout(() => cooling = false, 700);
+      });
+    })();
+  </script>
+</body>
+</html>
