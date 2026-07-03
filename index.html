@@ -194,8 +194,12 @@
       padding: 90px 0 60px; overflow: hidden;
     }
     .hero-inner { position: relative; z-index: 2; }
-    .hero-dinos { position: relative; height: clamp(160px, 28vw, 250px); margin-bottom: 8px; }
-    .hero-dinos > * { position: absolute; }
+    .hero-dinos { position: relative; height: clamp(170px, 30vw, 260px); margin-bottom: 8px; }
+    .hero-dinos > * { position: absolute; height: auto; }
+    .hi-sol    { width: clamp(52px, 8vw, 78px); }
+    .hi-planet { width: clamp(90px, 14vw, 132px); }
+    .hi-dino-l { width: clamp(96px, 16vw, 150px); }
+    .hi-dino-r { width: clamp(110px, 18vw, 172px); }
 
     .eyebrow {
       display: inline-flex; align-items: center; gap: 8px;
@@ -243,16 +247,6 @@
       100% { transform: translate(112vw, -108vh) rotate(22deg) scale(1.05); opacity: 0; }
     }
 
-    /* MINI COHETES vectoriales (varios, distinto color/orientacion/ruta) */
-    .mini-rocket { position: fixed; z-index: 1; pointer-events: none; opacity: 0; will-change: transform;
-      filter: drop-shadow(0 6px 14px rgba(0,0,0,.35)); }
-    .mini-rocket.r1 { left: -80px; top: 68%;  animation: flyR1 22s linear infinite; animation-delay: -4s; }
-    .mini-rocket.r2 { right: -80px; top: 12%; animation: flyR2 27s linear infinite; animation-delay: -12s; }
-    .mini-rocket.r3 { left: -80px; top: 40%;  animation: flyR3 34s linear infinite; animation-delay: -20s; }
-    @keyframes flyR1 { 0%{transform:translate(0,0) rotate(35deg);opacity:0} 8%{opacity:.9} 90%{opacity:.9} 100%{transform:translate(115vw,-40vh) rotate(35deg);opacity:0} }
-    @keyframes flyR2 { 0%{transform:translate(0,0) rotate(-140deg) ;opacity:0} 8%{opacity:.85} 90%{opacity:.85} 100%{transform:translate(-118vw,45vh) rotate(-140deg);opacity:0} }
-    @keyframes flyR3 { 0%{transform:translate(0,0) rotate(18deg);opacity:0} 8%{opacity:.8} 90%{opacity:.8} 100%{transform:translate(120vw,-8vh) rotate(18deg);opacity:0} }
-
     /* EASTER EGG: dinos interactivos + lluvia de estrellas */
     .dino { cursor: pointer; -webkit-tap-highlight-color: transparent; }
     .dino.tapped { animation: dinoWiggle .5s var(--ease); }
@@ -297,9 +291,9 @@
       margin-top: 1.6em !important; font-family: var(--font-display);
       font-size: clamp(1.1rem, 3.2vw, 1.5rem) !important; color: var(--gold); font-weight: 600;
     }
-    .letter-deco { position: absolute; z-index: 0; }
-    .letter-deco.left  { left: -78px;  top: 30px; }
-    .letter-deco.right { right: -74px; bottom: 20px; }
+    .letter-deco { position: absolute; z-index: 0; height: auto; }
+    .letter-deco.left  { left: -90px;  top: 20px;  width: clamp(110px, 13vw, 158px); }
+    .letter-deco.right { right: -78px; bottom: 10px; width: clamp(90px, 11vw, 128px); }
     @media (max-width: 900px) { .letter-deco { display: none; } }
     /* dinos decorativos sueltos por secciones */
     .deco-dino { position: absolute; z-index: 0; opacity: .92; }
@@ -445,32 +439,6 @@
     </div>
   </div>
 
-  <!-- MINI COHETES vectoriales (color/orientacion distintos) -->
-  <div class="mini-rocket r1" aria-hidden="true">
-    <svg width="58" height="70" viewBox="0 0 60 70" fill="none">
-      <path d="M24 58 q6 14 12 0 q-6 7 -12 0 Z" fill="#fbbf24"/>
-      <path d="M30 4 C 44 18, 46 40, 30 56 C 14 40, 16 18, 30 4 Z" fill="#e8f0fe"/>
-      <circle cx="30" cy="24" r="7" fill="#22c55e"/>
-      <path d="M16 44 L6 60 L20 54 Z" fill="#ef4444"/><path d="M44 44 L54 60 L40 54 Z" fill="#ef4444"/>
-    </svg>
-  </div>
-  <div class="mini-rocket r2" aria-hidden="true">
-    <svg width="50" height="60" viewBox="0 0 60 70" fill="none">
-      <path d="M24 58 q6 14 12 0 q-6 7 -12 0 Z" fill="#38bdf8"/>
-      <path d="M30 4 C 44 18, 46 40, 30 56 C 14 40, 16 18, 30 4 Z" fill="#e8f0fe"/>
-      <circle cx="30" cy="24" r="7" fill="#a78bfa"/>
-      <path d="M16 44 L6 60 L20 54 Z" fill="#38bdf8"/><path d="M44 44 L54 60 L40 54 Z" fill="#38bdf8"/>
-    </svg>
-  </div>
-  <div class="mini-rocket r3" aria-hidden="true">
-    <svg width="44" height="54" viewBox="0 0 60 70" fill="none">
-      <path d="M24 58 q6 14 12 0 q-6 7 -12 0 Z" fill="#fbbf24"/>
-      <path d="M30 4 C 44 18, 46 40, 30 56 C 14 40, 16 18, 30 4 Z" fill="#e8f0fe"/>
-      <circle cx="30" cy="24" r="7" fill="#ef4444"/>
-      <path d="M16 44 L6 60 L20 54 Z" fill="#22c55e"/><path d="M44 44 L54 60 L40 54 Z" fill="#22c55e"/>
-    </svg>
-  </div>
-
   <!-- EASTER EGG toast -->
   <div class="egg-toast" id="eggToast" aria-hidden="true">🦕 ¡GRRR! ✨</div>
 
@@ -500,26 +468,10 @@
     <div class="wrap hero-inner">
 
       <div class="hero-dinos" aria-hidden="true">
-        <!-- planeta cyan sonriente con anillo -->
-        <svg class="float d3" style="left:4%; top:6px;" width="96" height="80" viewBox="0 0 96 80">
-          <ellipse cx="48" cy="42" rx="42" ry="12" fill="none" stroke="#38bdf8" stroke-width="4" opacity=".7"/>
-          <circle cx="48" cy="38" r="24" fill="#38bdf8"/>
-          <circle cx="41" cy="34" r="2.4" fill="#0f1b2d"/><circle cx="55" cy="34" r="2.4" fill="#0f1b2d"/>
-          <path d="M40 44 q8 7 16 0" stroke="#0f1b2d" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-        </svg>
-        <!-- sol dorado sonriente -->
-        <svg class="float d1" style="left:44%; top:-4px;" width="82" height="82" viewBox="0 0 84 84">
-          <circle cx="42" cy="42" r="26" fill="#fbbf24"/>
-          <path d="M34 40 q3 -4 6 0" stroke="#0f1b2d" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-          <path d="M44 40 q3 -4 6 0" stroke="#0f1b2d" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-          <path d="M36 50 q6 6 12 0" stroke="#0f1b2d" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-        </svg>
-        <!-- dino verde (hero, derecha) — inyectado por JS -->
-        <span class="dino float d2" data-dino="green" data-w="150" style="left:56%; top:34px;"></span>
-        <!-- dino rojo (hero, izquierda) — inyectado por JS -->
-        <span class="dino float d4" data-dino="red" data-w="128" style="left:20%; top:60px;"></span>
-        <!-- dino cyan mirando a la izquierda (flip) -->
-        <span class="dino float d1" data-dino="cyan" data-w="92" data-flip style="left:80%; top:118px;"></span>
+        <img class="hi-sol float d1"    src="imgs/sol.svg"    alt="" style="left:8%;  top:-6px;">
+        <img class="hi-planet float d3" src="imgs/anillo.svg" alt="" style="right:7%; top:8px;">
+        <img class="dino hi-dino-l float d2" src="imgs/verde.svg" alt="" data-egg style="left:19%; top:34px;">
+        <img class="dino hi-dino-r float d4" src="imgs/azul.svg"  alt="" data-egg style="right:16%; top:70px;">
       </div>
 
 
@@ -532,12 +484,6 @@
          data-en="Today your great adventure begins"></p>
 
       <div class="scroll-cue" aria-hidden="true">
-        <svg class="rocket-sep" width="40" height="40" viewBox="0 0 40 40">
-          <path d="M20 3 C 28 10, 30 22, 20 34 C 10 22, 12 10, 20 3 Z" fill="#e8f0fe"/>
-          <circle cx="20" cy="16" r="4.5" fill="#38bdf8"/>
-          <path d="M12 26 L7 33 L15 30 Z" fill="#ef4444"/><path d="M28 26 L33 33 L25 30 Z" fill="#ef4444"/>
-          <path d="M17 34 q3 6 6 0" fill="#fbbf24"/>
-        </svg>
         <span data-es="Explora" data-en="Scroll"></span>
         <span class="chevron"></span>
       </div>
@@ -556,8 +502,8 @@
       </div>
 
       <div class="letter-card reveal">
-        <span class="letter-deco left float d2" data-dino="gray" data-w="128" aria-hidden="true"></span>
-        <span class="letter-deco right float d4" data-dino="blue" data-w="128" aria-hidden="true"></span>
+        <img class="letter-deco left float d2" src="imgs/gris.svg" alt="" aria-hidden="true">
+        <img class="letter-deco right float d4" src="imgs/naranja.svg" alt="" aria-hidden="true">
 
         <p data-es="Hoy el universo entero se detiene un momento para darte la bienvenida. Eres pequeño, pero tus sueños ya son <span class='accent'>infinitos</span> como las estrellas que brillan sobre ti."
            data-en="Today the whole universe pauses for a moment to welcome you. You are small, but your dreams are already as <span class='accent'>infinite</span> as the stars shining above you."></p>
@@ -579,8 +525,8 @@
        3. SUEÑOS
        ============================================================ -->
   <section class="dreams">
-    <span class="deco-dino float d3" data-dino="purple" data-w="104" data-flip style="right:2%; top:60px;"></span>
-    <span class="deco-dino float d2" data-dino="gray" data-w="96" style="left:1%; bottom:40px;"></span>
+    <img class="deco-dino float d3" src="imgs/mars.svg" alt="" style="right:3%; top:70px; width:clamp(60px,8vw,96px);">
+    <img class="deco-dino float d2" src="imgs/star.svg" alt="" style="left:2%; bottom:60px; width:clamp(54px,7vw,84px);">
     <div class="wrap">
       <div class="section-head reveal">
         <div class="kicker" data-es="Sueña en grande" data-en="Dream big"></div>
@@ -661,8 +607,8 @@
        4. APOYA SUS SUEÑOS
        ============================================================ -->
   <section class="support">
-    <span class="deco-dino float d4" data-dino="cyan" data-w="100" style="left:3%; top:40px;"></span>
-    <span class="deco-dino float d1" data-dino="red" data-w="90" data-flip style="right:3%; bottom:60px;"></span>
+    <img class="deco-dino float d4" src="imgs/luna.svg" alt="" style="left:4%; top:44px; width:clamp(58px,8vw,90px);">
+    <img class="deco-dino float d1" src="imgs/naranja.svg" alt="" data-egg style="right:3%; bottom:50px; width:clamp(70px,9vw,104px);">
     <div class="wrap support-inner">
       <div class="section-head reveal" style="margin-bottom:0;">
         <div class="kicker" data-es="Un pequeño impulso" data-en="A little boost"></div>
@@ -703,9 +649,9 @@
   <footer>
     <div class="wrap">
       <div class="foot-dinos">
-        <span class="dino float d3" data-dino="gray" data-w="78" data-flip></span>
-        <span class="dino float d1" data-dino="green" data-w="96"></span>
-        <span class="dino float d2" data-dino="blue" data-w="78"></span>
+        <img class="dino float d3" src="imgs/gris.svg"   alt="" data-egg>
+        <img class="dino float d1" src="imgs/verde.svg"  alt="" data-egg>
+        <img class="dino float d2" src="imgs/azul.svg"   alt="" data-egg>
       </div>
       <p class="love" data-es="Con todo el amor del universo" data-en="With all the love in the universe"></p>
     </div>
@@ -715,66 +661,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    /* ============================================================
-       DINOSAURIO ASTRONAUTA (saurópodo cuello largo) — SVG generado
-       Construcción: cabeza óvalo + cuello curvo + cuerpo grande +
-       cola + patas + crestas dorsales + burbuja/casco. (Ref: guías de
-       dibujo de brontosaurio -> óvalos y curvas simples)
-       ============================================================ */
-    const DINO_COLORS = {
-      green: ['#22c55e', '#16a34a'],
-      red:   ['#ef4444', '#dc2626'],
-      gray:  ['#94a3b8', '#64748b'],
-      cyan:  ['#38bdf8', '#0ea5e9'],
-      blue:  ['#7cc4f5', '#4f96cf'],
-      purple:['#a78bfa', '#7c5cf0'],
-      gold:  ['#fbbf24', '#f59e0b'],
-    };
-
-    function dinoSVG(main, dark, w, flip) {
-      const g = flip ? '<g transform="scale(-1,1) translate(-170,0)">' : '<g>';
-      return `
-      <svg class="dino-svg" width="${w}" viewBox="0 0 170 155" fill="none" xmlns="http://www.w3.org/2000/svg">
-        ${g}
-          <!-- cola -->
-          <path d="M120 92 C 148 86, 158 70, 166 60 C 160 82, 150 100, 122 102 Z" fill="${main}"/>
-          <!-- patas traseras (tono oscuro) -->
-          <rect x="60" y="108" width="14" height="30" rx="7" fill="${dark}"/>
-          <rect x="104" y="108" width="14" height="30" rx="7" fill="${dark}"/>
-          <!-- cuerpo -->
-          <ellipse cx="86" cy="92" rx="44" ry="29" fill="${main}"/>
-          <!-- patas delanteras -->
-          <rect x="74" y="110" width="14" height="30" rx="7" fill="${main}"/>
-          <rect x="116" y="108" width="14" height="28" rx="7" fill="${main}"/>
-          <!-- cuello (curva gruesa hacia la cabeza) -->
-          <path d="M62 78 C 42 64, 36 42, 48 26 L 66 34 C 62 54, 74 70, 80 80 Z" fill="${main}"/>
-          <!-- crestas dorsales -->
-          <path d="M82 66 l6 -10 l6 10 Z M102 64 l6 -10 l6 10 Z M120 70 l5 -9 l5 9 Z" fill="${dark}"/>
-          <!-- cabeza -->
-          <ellipse cx="49" cy="24" rx="17" ry="13" fill="${main}"/>
-          <!-- hocico -->
-          <path d="M33 26 q-12 -1 -13 6 q0 6 13 4 Z" fill="${main}"/>
-          <circle cx="24" cy="27" r="1.7" fill="#0f1b2d"/>
-          <!-- ojo + sonrisa -->
-          <circle cx="49" cy="19" r="2.9" fill="#0f1b2d"/>
-          <path d="M38 28 q9 6 18 1" stroke="#0f1b2d" stroke-width="2" fill="none" stroke-linecap="round"/>
-          <!-- casco / burbuja espacial -->
-          <circle cx="47" cy="24" r="25" fill="#bfe6ff" opacity=".35" stroke="#e8f0fe" stroke-width="2.5"/>
-          <path d="M33 14 a20 20 0 0 1 12 -9" stroke="#fff" stroke-width="2.5" fill="none" opacity=".7" stroke-linecap="round"/>
-        </g>
-      </svg>`;
-    }
-
-    (function injectDinos() {
-      document.querySelectorAll('[data-dino]').forEach(el => {
-        const key = el.getAttribute('data-dino');
-        const [main, dark] = DINO_COLORS[key] || DINO_COLORS.green;
-        const w = el.getAttribute('data-w') || 140;
-        const flip = el.hasAttribute('data-flip');
-        el.innerHTML = dinoSVG(main, dark, w, flip);
-      });
-    })();
-
     /* ============================================================
        i18n — detecta idioma del navegador, alterna con el botón
        ============================================================ */
@@ -993,7 +879,7 @@
        ============================================================ */
     (function easterEgg() {
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const dinos = document.querySelectorAll('.dino[data-dino]');
+      const dinos = document.querySelectorAll('.dino[data-egg]');
       const eggToast = document.getElementById('eggToast');
       const colors = ['#fbbf24', '#38bdf8', '#ef4444', '#22c55e', '#a78bfa', '#ffffff'];
       let taps = 0, tapTimer;
