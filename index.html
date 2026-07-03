@@ -936,8 +936,7 @@
         for (let i = 0; i < N; i++) {
           const s = document.createElement('div');
           s.className = 'shooting-star';
-          const c = colors[(Math.random() * colors.length) | 0];
-          s.style.setProperty('--c', c);
+          s.style.setProperty('--c', '#ffffff');
           s.style.top = (Math.random() * 62 + 6).toFixed(1) + 'vh';
           s.style.left = '-12vw';
           document.body.appendChild(s);
