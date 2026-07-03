@@ -241,10 +241,10 @@
     }
     #rocket-fly img { width: clamp(110px, 16vw, 175px); height: auto; }
     @keyframes crossScreen {
-      0%   { transform: translate(0, 0) rotate(22deg) scale(.85); opacity: 0; }
+      0%   { transform: translate(0, 0) rotate(-8deg) scale(.85); opacity: 0; }
       10%  { opacity: 1; }
       88%  { opacity: 1; }
-      100% { transform: translate(112vw, -108vh) rotate(22deg) scale(1.05); opacity: 0; }
+      100% { transform: translate(112vw, -108vh) rotate(-8deg) scale(1.05); opacity: 0; }
     }
 
     /* EASTER EGG: dinos interactivos + lluvia de estrellas */
@@ -255,7 +255,17 @@
       25% { transform: rotate(-8deg) scale(1.08); }
       60% { transform: rotate(7deg) scale(1.08); }
     }
-    .rain-piece { position: fixed; top: -40px; z-index: 95; pointer-events: none; will-change: transform, opacity; }
+    /* estrella fugaz: cabeza brillante + cola */
+    .shooting-star {
+      position: fixed; z-index: 95; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--c, #fff); box-shadow: 0 0 10px 2px var(--c, #fff);
+      pointer-events: none; will-change: transform, opacity;
+    }
+    .shooting-star::before {
+      content: ""; position: absolute; right: 5px; top: 50%; transform: translateY(-50%);
+      width: 110px; height: 2px; border-radius: 2px;
+      background: linear-gradient(270deg, var(--c, #fff), transparent);
+    }
     .egg-toast {
       position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(.6);
       z-index: 120; font-family: var(--font-display); font-weight: 700;
@@ -440,7 +450,7 @@
   </div>
 
   <!-- EASTER EGG toast -->
-  <div class="egg-toast" id="eggToast" aria-hidden="true">🦕 ¡GRRR! ✨</div>
+  <div class="egg-toast" id="eggToast" aria-hidden="true">¡GRRR!</div>
 
   <!-- BOTÓN IDIOMA -->
   <button class="lang-toggle" id="langToggle" type="button" aria-label="Change language">
@@ -875,7 +885,7 @@
     })();
 
     /* ============================================================
-       EASTER EGG — 5 toques a un dino => lluvia de estrellas + rugido
+       EASTER EGG — 5 toques a un dino => estrellas fugaces + rugido
        ============================================================ */
     (function easterEgg() {
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -919,24 +929,28 @@
         } catch (e) {}
       }
 
-      function starRain() {
+      // estrellas fugaces cruzando desde la izquierda hacia arriba-derecha
+      function shootingStars() {
         if (reduce) { celebrate(); return; }
-        const N = 42;
+        const N = 11;
         for (let i = 0; i < N; i++) {
-          const p = document.createElement('div');
-          p.className = 'rain-piece';
+          const s = document.createElement('div');
+          s.className = 'shooting-star';
           const c = colors[(Math.random() * colors.length) | 0];
-          const sz = 10 + Math.random() * 14;
-          p.innerHTML = '<svg width="' + sz + '" height="' + sz + '" viewBox="0 0 16 16"><path d="M8 0 C9 6 10 7 16 8 C10 9 9 10 8 16 C7 10 6 9 0 8 C6 7 7 6 8 0 Z" fill="' + c + '"/></svg>';
-          p.style.left = (Math.random() * 100).toFixed(2) + 'vw';
-          document.body.appendChild(p);
-          const drift = (Math.random() * 120 - 60);
-          const rot = Math.random() * 720 - 360;
-          p.animate([
-            { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
-            { transform: 'translate(' + drift + 'px,' + (window.innerHeight + 80) + 'px) rotate(' + rot + 'deg)', opacity: 1 },
-          ], { duration: 2200 + Math.random() * 1500, easing: 'cubic-bezier(.3,.1,.5,1)', delay: Math.random() * 700 })
-            .onfinish = () => p.remove();
+          s.style.setProperty('--c', c);
+          s.style.top = (Math.random() * 62 + 6).toFixed(1) + 'vh';
+          s.style.left = '-12vw';
+          document.body.appendChild(s);
+          const dx = (112 + Math.random() * 22);      // vw hacia la derecha
+          const dy = -(8 + Math.random() * 20);       // vh sube un poco
+          const rot = -(9 + Math.random() * 9);       // grados (cola alineada)
+          s.animate([
+            { transform: 'translate(0,0) rotate(' + rot + 'deg) scale(.5)', opacity: 0 },
+            { opacity: 1, offset: 0.12 },
+            { opacity: 1, offset: 0.82 },
+            { transform: 'translate(' + dx + 'vw,' + dy + 'vh) rotate(' + rot + 'deg) scale(1)', opacity: 0 }
+          ], { duration: 850 + Math.random() * 500, delay: i * 130 + Math.random() * 90, easing: 'cubic-bezier(.35,.5,.5,1)' })
+            .onfinish = () => s.remove();
         }
         celebrate();
       }
@@ -955,7 +969,7 @@
           taps++;
           clearTimeout(tapTimer);
           tapTimer = setTimeout(() => { taps = 0; }, 2500); // hay que ser agil
-          if (taps >= 5) { taps = 0; starRain(); }
+          if (taps >= 5) { taps = 0; shootingStars(); }
         });
       });
     })();
