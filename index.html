@@ -221,7 +221,11 @@
       margin-top: 46px; display: inline-flex; flex-direction: column; align-items: center; gap: 10px;
       color: var(--muted); font-size: .8rem; font-family: var(--font-display);
       letter-spacing: 1px; text-transform: uppercase;
+      background: none; border: none; cursor: pointer; padding: 6px 10px;
+      transition: color .2s var(--ease), transform .2s var(--ease);
     }
+    .scroll-cue:hover { color: var(--cyan); transform: translateY(2px); }
+    .scroll-cue:hover .chevron { border-color: var(--cyan); }
     .scroll-cue .rocket-sep { animation: float 3.5s ease-in-out infinite; }
     .scroll-cue .chevron {
       width: 26px; height: 26px; border-right: 3px solid var(--cyan); border-bottom: 3px solid var(--cyan);
@@ -493,10 +497,10 @@
          data-es="Hoy comienza tu gran aventura"
          data-en="Today your great adventure begins"></p>
 
-      <div class="scroll-cue" aria-hidden="true">
+      <button class="scroll-cue" id="scrollCue" type="button" aria-label="Explora">
         <span data-es="Explora" data-en="Scroll"></span>
         <span class="chevron"></span>
-      </div>
+      </button>
 
     </div>
   </section>
@@ -504,7 +508,7 @@
   <!-- ============================================================
        2. CARTA
        ============================================================ -->
-  <section class="letter">
+  <section class="letter" id="carta">
     <div class="wrap">
       <div class="section-head reveal">
         <div class="kicker" data-es="Una carta para ti" data-en="A letter for you"></div>
@@ -725,6 +729,14 @@
 
     I18N.apply();
     document.getElementById('langToggle').addEventListener('click', () => I18N.toggle());
+
+    /* flecha "Explora" => scroll a la carta */
+    (function scrollCue() {
+      const cue = document.getElementById('scrollCue');
+      const target = document.getElementById('carta');
+      if (!cue || !target) return;
+      cue.addEventListener('click', () => target.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    })();
 
     /* ============================================================
        ESTRELLAS DE FONDO
